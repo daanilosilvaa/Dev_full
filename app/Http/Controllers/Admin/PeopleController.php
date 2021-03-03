@@ -56,7 +56,7 @@ class PeopleController extends Controller
         $data['document'] = str_replace($remov, "", $data['document']);
 
        if($data['type'] == "F"){
-        $data['fatasy_name'] = null;      
+        $data['fantasy_name'] = null;      
        }
 
 
@@ -114,8 +114,9 @@ class PeopleController extends Controller
         $data['document'] = str_replace($remov, "", $data['document']);
 
        if($data['type'] == "F"){
-        $data['fatasy_name'] = null;      
+        $data['fantasy_name'] = null;      
        }
+       
 
 
         $people->update($data);
@@ -130,6 +131,13 @@ class PeopleController extends Controller
      */
     public function destroy($id)
     {
-        //
+      if(!$people = $this->repository->find($id)){
+          redirect()->back();
+      }
+      
+
+      $people->delete();
+      return redirect()->route('people.index');
+
     }
 }

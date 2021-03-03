@@ -225,11 +225,6 @@ return [
 
     'menu' => [
         [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
-        [
             'text' => 'profile',
             'url'  => '/people',
             'icon' => 'fas fa-fw fa-user',

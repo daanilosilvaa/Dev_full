@@ -30,7 +30,7 @@
 
 <div class="form-group">
     <label for="">Nome Fantasia</label>
-    <input type="text" name="fatasy_name" class="form-control" placeholder="Nome Fantasia:" value="{{$people->fantasy_name ?? old('fantasy_name')}}">
+    <input type="text" name="fantasy_name" class="form-control" placeholder="Nome Fantasia:" value="{{$people->fantasy_name ?? old('fantasy_name')}}">
 </div>
 
 <fieldset class="form-group col-md-6">
