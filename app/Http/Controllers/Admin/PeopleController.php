@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contact;
 use App\Models\People;
-use App\Models\Phone;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\AssignOp\Concat;
 
@@ -139,5 +137,28 @@ class PeopleController extends Controller
       $people->delete();
       return redirect()->route('people.index');
 
+    }
+
+    /**
+     * Search results
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+
+        $filters = $request->only('filter');
+
+        $people = $this->repository
+                                ->where(function($query) use ($request){
+                                    if($request->filter) {
+                                        $query->orWhere('document', 'LIKE', "%{$request->filter}%");
+                                        $query->orWhere('name', 'LIKE', "%{$request->filter}%"); 
+                                    }
+                                })
+                                ->latest()
+                                ->paginate();
+        return view('pages.people.index',compact('people', 'filters'));
     }
 }

@@ -20,6 +20,7 @@
            <table class="table table-condensed">
                <thead>
                    <th>Nome</th>
+                   <th>CPF/CNPJ</th>
                    <th width="150" class="text-center">Ação</th>
                </thead>
                <tbody>
@@ -28,6 +29,16 @@
                             <td>
                                 {{$person->name}}
                             </td>
+                            @if ($person->type =="F")
+                                <td>
+                                    {{$person->document = ($person->document == 11) ? 'Não' : substr($person->document, 0, 3) . '.' . substr($person->document, 3, 3) . '.' . substr($person->document, 6, 3) . '-' . substr($person->document, 9)}}
+                                </td>
+                            @else
+                            <td>
+                                {{$person->document = ($person->document == 11) ? 'Não' : substr($person->document, 0, 2) . '.' . substr($person->document, 2, 3) . '.' . substr($person->document, 5, 3) . '/' . substr($person->document, 8, 4) . '-' . substr($person->document, 12, 2)}}
+                            </td>
+                            @endif
+                            
                             <td>
                                 <a href="{{ route('people.edit', $person->id) }}" class="btn btn-primary" title="Editar Cadastro"><i class="fas fa-user-edit"></i></a>
                                 <a href="{{ route('people.show', $person->id) }}" class="btn btn-info" title="Exibir Informação"><i class="fas fa-eye"></i></a>
