@@ -3,7 +3,7 @@
 @section('title', 'Endereços')
 
 @section('content_header')
-    <h1>Endereços da Pessoa : <strong>{{$person->name}}</strong> <a href=" {{ route('people.address.create',$person->id) }} " class="btn btn-dark">Adicionar outros endereço</a></h1>
+    <h1>Endereços da Pessoa : <strong>{{$people->name}}</strong> <a href=" {{ route('people.phone.create',$people->id) }} " class="btn btn-dark">Adicionar outros telefone</a></h1>
 
 @stop
 
@@ -20,26 +20,23 @@
             {{-- @include('admin.includes.alerts') --}}
            <table class="table table-condensed">
                <thead>
-                   <th>Nome</th>
                    <th>Numero</th>
-                   <th>Distrito</th>
+                   <th>Descrição</th>
                    <th width="250" class="text-center">Ação</th>
                </thead>
                <tbody>
-                    @foreach ($person->contacts as $address)                 
+                    @foreach ($people->phones as $phone)                 
                         <tr>
                             <td>
-                                {{$address->street}}
+                                {{$phone->number}}
                             </td>
                             <td>
-                                {{$address->number}}
+                                {{$phone->description}}
                             </td>
+                            
                             <td>
-                                {{$address->district}}
-                            </td>
-                            <td>
-                                <a href="{{ route('address.edit',[$person->id, $address->id]) }}" class="btn btn-primary" title="Editar Cadastro"><i class="fas fa-edit"></i></a>
-                                <a href="{{ route('address.show', [$person->id, $address->id]) }}" class="btn btn-info" title="Exibir Informação"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('phone.edit',[$people->id, $phone->id]) }}" class="btn btn-primary" title="Editar Cadastro"><i class="fas fa-edit"></i></a>
+                                <a href="{{ route('phone.show', [$people->id, $phone->id]) }}" class="btn btn-info" title="Exibir Informação"><i class="fas fa-eye"></i></a>
                                 </a>
                             </td>                    
                         </tr>

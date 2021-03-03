@@ -20,6 +20,12 @@
                 <li>
                     <strong>Nome: </strong>{{$people->name}}
                 </li>
+                @if (isset($people->fantasy_name))
+                <li>
+                    <strong>Nome Fantasia: </strong>{{$people->fantasy_name}}
+                </li>
+            @endif
+
                 <li>
                     <strong>CPF/CNPJ: </strong>{{$people->document}}
                 </li>
@@ -32,12 +38,12 @@
                     </li>
                 @endif
                 <li>
-                    <strong>CPF/CNPJ:</strong>{{$people->document}}
+                    <strong>Data Nascimento/Fundação :</strong>{{date('d/m/Y', strtotime($people->brith))}}
                 </li>
                
             </ul>
               <hr>
-                <h3>Entereços <a href=" {{ route('address.index', $people->id ) }} " class="btn btn-dark"><i class="fas fa-plus-square"></i></a></h3>
+                <h3>Entereços <a href=" {{ route('people.address.create', $people->id ) }} " class="btn btn-dark"><i class="fas fa-plus-square"></i></a></h3>
                 <ul>
                     <div class="row">
                         @foreach ($people->contacts as $address)
@@ -77,31 +83,45 @@
                     </div>
                 </ul>
                 <hr>
+            <h3>Telefones  <a href=" {{ route('people.phone.create', $people->id) }} " class="btn btn-dark"><i class="fas fa-plus-square"></i></a></h3>
+                <ul>
+                    <div class="row">
+                        @foreach ($people->phones as $phone)
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-dark">
+                                <div class="inner">
                 
-            
-           
-            <h3>Telefones  <a href=" {{ route('phone.create', $people->id) }} " class="btn btn-dark"><i class="fas fa-plus-square"></i></a></h3>
-            <ul>
-                @foreach ($people->phones as $phone)
-                    <li>
-                        <strong>Tipo</strong> {{$phone->type}}
-                    </li>
-                    <li>
-                        <strong>Numero</strong> {{$phone->number}}
-                    </li>
-                    <li>
-                        <strong>Descrição</strong> {{$phone->description}}
-                    </li>
-                @endforeach
-            </ul>
-            <hr>
-
-            <form action="{{ route('people.destroy', $people->id) }}"  method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger">Deletar  {{$people->name}} </button>
-            </form>
-
+                                    <li>
+                                        <strong>Numero: </strong> {{$phone->number}}
+                                    </li>
+                                    <li>
+                                        <strong>Descrição: </strong> {{$phone->description}}
+                                    </li>
+                                    <li>
+                                        <strong>Atualizado: </strong> {{date('d/m/Y', strtotime($phone->updated_at))}}
+                                    </li>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-location-arrow"></i>
+                                </div>
+                               <div class="container">
+                                    <div class="row" style="margin-left: 20%" >
+                                        <a href="{{ route('phone.edit',[$people->id, $phone->id]) }}" class="btn btn-primary" title="Editar Cadastro"><i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('phone.show', [$people->id, $phone->id]) }}" class="btn btn-info" title="Exibir Informação"><i class="fas fa-eye"></i></a>
+                                        <form action="{{ route('phone.destroy',[$people->id, $phone->id]) }}"  method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                    </div>
+                               </div>
+                                
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </ul>
         </div>
     </div>
 @endsection

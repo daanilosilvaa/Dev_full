@@ -23,18 +23,18 @@ class AddressController extends Controller
      */
     public function index(Request $request)
     {
-        $idPeople = $request['idPerson'];
+        $idPeople = $request['idPeople'];
 
-        if (!$person = People::where('id', $idPeople)->first()) {
+        if (!$people = People::where('id', $idPeople)->first()) {
             return redirect()->back();
           }
         
 
-        $addresses = Contact::where('people_id', $person->id)->paginate();
-        $person = People::where('id', $idPeople)->first();
+        $addresses = Contact::where('people_id', $people->id)->paginate();
+        $people = People::where('id', $idPeople)->first();
 
 
-        return view('pages.addresses.index',compact(['person','addresses']));
+        return view('pages.addresses.index',compact(['people','addresses']));
     }
 
     /**
@@ -44,10 +44,11 @@ class AddressController extends Controller
      */
     public function create(Request $request)
     {
-        $idPeople = $request['idPerson'];
-        $person = People::where('id', $idPeople)->first();
-
-        return view('pages.addresses.create',compact(['person']));
+        $idPeople = $request['idPeople'];
+        $people = People::where('id', $idPeople)->first();
+    
+      
+        return view('pages.addresses.create',compact(['people']));
     
     }
 
@@ -61,15 +62,15 @@ class AddressController extends Controller
     {
         
         $data = $request->except('_token');
-        $idPeople = $request['idPerson'];
-        $person = People::where('id', $idPeople)->first();
-
-       $data['people_id'] = $person->id;
+        
+       $data['people_id'] = $request['idPeople'];
 
        $this->repository->create($data);
-       $addresses = Contact::where('people_id', $person->id)->paginate();
+       $person  = $request['idPeople'];
 
-       return view('pages.addresses.index',compact(['person','addresses']));
+
+
+       return redirect()->route('people.show', compact(['person']));
     }
 
     /**
@@ -81,12 +82,12 @@ class AddressController extends Controller
     public function show(Request $request)
     {
         $idAddress = $request['idAddress'];
-        $idPerson = $request['idPerson'];
+        $idPeople = $request['idPeople'];
 
         if(!$address = $this->repository->where('id', $idAddress)->first()){
             return redirect()->back();
         }
-        $people = People::where('id', $idPerson)->first();
+        $people = People::where('id', $idPeople)->first();
 
         return view('pages.addresses.show',compact(['address','people']));
     }
@@ -102,15 +103,15 @@ class AddressController extends Controller
 
         
         $idAddress = $request['idAddress'];
-        $idPerson = $request['idPerson'];
+        $idPeople = $request['idPeople'];
 
         if(!$address = $this->repository->latest()->find($idAddress)){
             return redirect()->back();
         }
 
-        $person = People::where('id', $idPerson)->first();
+        $people = People::where('id', $idPeople)->first();
   
-        return view('pages.addresses.edit',compact(['address','person']));
+        return view('pages.addresses.edit',compact(['address','people']));
     }
 
     /**
@@ -123,7 +124,7 @@ class AddressController extends Controller
     public function update(Request $request, $idAddress)
     {
         $idAddress = $request['idAddress'];
-        $idPerson = $request['idPerson'];
+        $person = $request['idPeople'];
 
         if(!$address = $this->repository->latest()->find($idAddress)){
             return redirect()->back();
@@ -131,15 +132,13 @@ class AddressController extends Controller
 
         
         $data = $request->except('_token');
-        $data['people_id'] = $request['idPerson'];
+        $data['people_id'] = $request['idPeople'];
         
 
         $address->update($data);
 
-        $person = People::where('id', $idPerson)->with('contacts')->first();
 
-
-        return view('pages.addresses.index',compact(['person']));
+        return redirect()->route('people.show', compact(['person']));
     
 
     }
@@ -154,16 +153,15 @@ class AddressController extends Controller
     {
 
         $idAddress = $request['idAddress'];
-        $idPerson = $request['idPerson'];
+        $person = $request['idPeople'];
 
         if(!$address = $this->repository->find($idAddress)){
             return redirect()->back();
         }
-        $person = People::where('id', $idPerson)->first();
 
         $address->delete();
 
-        return view('pages.addresses.index',compact(['person']));
+        return redirect()->route('people.show', compact(['person']));
 
 
       

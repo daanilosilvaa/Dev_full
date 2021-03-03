@@ -31,7 +31,7 @@
                             <td>
                                 <a href="{{ route('people.edit', $person->id) }}" class="btn btn-primary" title="Editar Cadastro"><i class="fas fa-user-edit"></i></a>
                                 <a href="{{ route('people.show', $person->id) }}" class="btn btn-info" title="Exibir Informação"><i class="fas fa-eye"></i></a>
-                                <a href="{{ route('people.phone.index', $person->id) }}" class="btn btn-success" title="Cadastrar Telefone"><i class="fas fa-phone-alt"></i></a>
+                                <a href="{{ route('phone.index', $person->id) }}" class="btn btn-success" title="Cadastrar Telefone"><i class="fas fa-phone-alt"></i></a>
                                 {{-- <a href="{{ route('address.index',$person->id) }}" class="btn btn-success" title="Cadastrar Endereço"><i class="fas fa-location-arrow"></i></a> --}}
                                 </a>
                             </td>                    

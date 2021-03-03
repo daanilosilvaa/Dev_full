@@ -40,7 +40,6 @@ class CreatePeopleTable extends Migration
         Schema::create('phones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('people_id');;
-            $table->boolean('type');
             $table->string('number');
             $table->text('description');
 

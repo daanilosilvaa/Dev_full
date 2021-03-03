@@ -1,9 +1,13 @@
 @extends('adminlte::page')
 
-@section('subTitle',"Editar Pessoa :{$person->name}")
+@section('subTitle',"Editar Endereço :{$people->name}")
 @section('content')
 
-<form action="{{ route('address.update', [$person->id,$address->id]) }}" class="form" method="POST">
+@section('content_header')
+    <h1>Editar Endereço:{{$people->name}}</h1>
+@stop
+
+<form action="{{ route('address.update', [$people->id,$address->id]) }}" class="form" method="POST">
    @csrf
    @method('PUT')
   @include('pages.addresses._partials.form')

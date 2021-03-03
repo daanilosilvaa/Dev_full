@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-    <h1>Detalhes da Pessoa </b></h1>
+    <h1>Detalhes do Telefone : <strong>{{$people->name}}</strong> </h1> 
 @stop
 
 @section('content')
@@ -13,15 +13,12 @@
         <div class="card-body">                
                 <ul>
                     <li>
-                        <strong>Logradouro</strong> {{$address->street}}
+                        <strong>Numero</strong> {{$phone->number}}
                     </li>
                     <li>
-                        <strong>Numero</strong> {{$address->number}}
+                        <strong>Descrição</strong> {{$phone->description}}
                     </li>
-                    <li>
-                        <strong>Bairro</strong> {{$address->district}}
-                    </li>
-                    <form action="{{ route('address.destroy',[$people->id, $address->id]) }}"  method="POST">
+                    <form action="{{ route('phone.destroy',[$people->id, $phone->id]) }}"  method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>

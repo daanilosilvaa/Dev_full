@@ -62,15 +62,13 @@ class PhoneController extends Controller
     {
         
         $data = $request->except('_token');
-        $idPeople = $request['idPeople'];
-        $people = People::where('id', $idPeople)->first();
+        $person = $request['idPeople'];
 
-       $data['people_id'] = $people->id;
+       $data['people_id'] = $person;
 
        $this->phone->create($data);
-       $phones = Phone::where('people_id', $people->id)->paginate();
 
-       return view('pages.phones.index',compact(['people','phones']));
+       return redirect()->route('people.show', compact(['person']));
     }
 
     /**
@@ -124,23 +122,18 @@ class PhoneController extends Controller
     public function update(Request $request, $idPhone)
     {
         $idPhone = $request['idPhone'];
-        $idPeople = $request['idPeople'];
+        $person = $request['idPeople'];
 
         if(!$phone = $this->phone->latest()->find($idPhone)){
             return redirect()->back();
         }
 
-        
         $data = $request->except('_token');
         $data['people_id'] = $request['idPeople'];
         
-
         $phone->update($data);
 
-        $people = People::where('id', $idPeople)->with('contacts')->first();
-
-
-        return view('pages.phones.index',compact(['people']));
+        return redirect()->route('people.show', compact(['person']));
     
 
     }
@@ -155,16 +148,14 @@ class PhoneController extends Controller
     {
 
         $idPhone = $request['idPhone'];
-        $idPeople = $request['idPeople'];
+        $person = $request['idPeople'];
 
         if(!$phone = $this->phone->find($idPhone)){
             return redirect()->back();
         }
-        $people = People::where('id', $idPeople)->first();
-
         $phone->delete();
 
-        return view('pages.phones.index',compact(['people']));
+        return redirect()->route('people.show', compact(['person']));
 
 
       

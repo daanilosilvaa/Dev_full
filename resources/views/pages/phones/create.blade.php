@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Cadastrar Pessoa')
+@section('title', 'Cadastrar Telefone')
 
 @section('content_header')
-    <h1>Cadastrar Endereço para : {{$person->name}}</h1>
+    <h1>Cadastrar Telefone para : {{$people->name}}</h1>
 @stop
 
 @section('content')
@@ -11,9 +11,9 @@
 
         <div class="card-body">
 
-            <form action="{{ route('address.store',$person->id) }}" class="form" method="POST">
+            <form action="{{ route('phone.store',$people->id) }}" class="form" method="POST">
                 @csrf
-                @include('pages.addresses._partials.form')
+                @include('pages.phones._partials.form')
             </form>
 
         </div>
