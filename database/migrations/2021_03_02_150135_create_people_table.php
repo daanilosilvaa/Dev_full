@@ -25,13 +25,25 @@ class CreatePeopleTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('cotacts', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('people_id');
-            $table->string('address')->nullable();
+            $table->string('street')->nullable();
             $table->string('number')->nullable();
             $table->string('district')->nullable();
-            $table->string('phone')->nullable();
+            $table->foreign('people_id')
+                        ->references('id')
+                        ->on('people')
+                        ->onDelete('cascade');
+            $table->timestamps();
+        });
+        Schema::create('phones', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('people_id');;
+            $table->boolean('type');
+            $table->string('number');
+            $table->text('description');
+
             $table->foreign('people_id')
                         ->references('id')
                         ->on('people')
@@ -47,7 +59,8 @@ class CreatePeopleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cotacts');
+        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('phones');
         Schema::dropIfExists('people');
     }
 }

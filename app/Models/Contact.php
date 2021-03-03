@@ -6,10 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    protected $fillabel = [
-        'address',
+    protected $fillable = [
+        'people_id',
+        'street',
         'number',
         'district',
         'phone',
     ];
+
+   public function people()
+   {
+       return $this->belongsTo(People::class);
+   }
 }

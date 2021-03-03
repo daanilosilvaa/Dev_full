@@ -6,12 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class People extends Model
 {
-    protected $fillabel = [
+    protected $fillable = [
+        'type',
+        'document',
         'name',
         'fantasy_name',
-        'rg_ie',
         'sex',
-        'type',
+        'rg_ie',
         'brith',
     ];
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
+
+    public function phones()
+    {
+        return $this->hasMany(Phone::class);
+    }
 }

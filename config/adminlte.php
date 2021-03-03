@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Dev Full Stack',
+    'title' => 'AdminLTE 3',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Dev</b>Full Stack',
+    'logo' => '<b>Admin</b>LTE',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -231,10 +231,9 @@ return [
         ],
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'url'  => '/people',
             'icon' => 'fas fa-fw fa-user',
         ],
-       
     ],
 
     /*
